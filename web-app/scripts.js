@@ -23,4 +23,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300 + (index * 200)); // 300ms base delay, then 200ms between each card
     });
   }
-}); 
+
+  // Dark mode toggle — shared across all pages
+  initDarkMode();
+});
+
+/**
+ * Dark Mode
+ * Reads the saved preference from localStorage on load, and toggles
+ * the `data-theme="dark"` attribute on <html> when the button is clicked.
+ */
+function initDarkMode() {
+  const toggle = document.querySelector('[data-dark-mode-toggle]');
+  if (!toggle) return;
+
+  // Apply saved preference immediately to avoid flash
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '☀️';
+  }
+
+  // Toggle on click — use event delegation via the button itself
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+}

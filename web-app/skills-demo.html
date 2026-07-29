@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<!-- Skills Demo page: showcases all 5 AI-assisted development skills with accordion layout, Prism.js syntax highlighting, and dark mode support -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Skills Demo - DevClarity Coding Tutorial</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Prism.js syntax highlighting - Okaidia theme (Monokai-style) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="header">
+    <nav class="header__nav">
+      <ul class="header__nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="skills-demo.html" aria-current="page">Skills</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="dark-mode-toggle" aria-label="Toggle dark mode" data-dark-mode-toggle>🌙</button>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>AI-Assisted Development Skills</h1>
+      <p>Learn how AI can help you write better code, faster. Each skill below shows a different way to improve your development workflow — with real before and after examples.</p>
+    </section>
+
+    <!-- Skills Accordion -->
+    <section class="skills-section">
+      <div class="skills-container">
+
+        <!-- ─── Skill 1: Code Explainer ─── -->
+        <div class="skill-card">
+          <button class="skill-header" data-skill-target="skill-code-explainer" aria-expanded="true" aria-controls="skill-code-explainer">
+            <span class="skill-header__title">1. Code Explainer</span>
+            <span class="skill-header__icon" aria-hidden="true">−</span>
+          </button>
+          <div class="skill-content" id="skill-code-explainer">
+            <p class="skill-content__description">
+              <strong>What it does:</strong> Breaks down unfamiliar code into understandable parts — explaining what each piece does, why it was written that way, and what to watch out for.
+            </p>
+            <p class="skill-content__description">
+              <strong>When to use:</strong> You encounter code you didn't write and need to understand it quickly.
+            </p>
+
+            <!-- Code to explain -->
+            <div class="code-block">
+              <p class="code-block__label">📌 Code to Explain</p>
+              <pre><code class="language-javascript">const fetchUserData = async (userId) => {
+  const response = await fetch(`/api/users/${userId}`);
+  const data = await response.json();
+  const topPosts = data.posts.filter(post => post.likes > 10);
+  return { ...data, topPosts };
+};
+
+fetchUserData(42).then(result => {
+  document.getElementById('user-name').innerHTML = result.name;
+});</code></pre>
+            </div>
+
+            <!-- AI explanation -->
+            <div class="skill-explanation">
+              <h4>🔍 AI Breakdown</h4>
+              <p><strong>Key Components:</strong></p>
+              <ul>
+                <li><code>fetchUserData()</code> — Async function that calls an API and returns processed data</li>
+                <li><code>fetch()</code> — Built-in browser API for making HTTP requests</li>
+                <li><code>response.json()</code> — Converts the raw response into a JavaScript object</li>
+                <li><code>.filter()</code> — Creates a new array with only posts that have more than 10 likes</li>
+                <li><code>{ ...data, topPosts }</code> — Spreads all original user data and adds the new <code>topPosts</code> property</li>
+              </ul>
+              <p><strong>How it runs step by step:</strong></p>
+              <ol>
+                <li>Function is called with a user ID (e.g. 42)</li>
+                <li>An HTTP GET request is made to <code>/api/users/42</code></li>
+                <li>The response body is parsed as JSON</li>
+                <li>Posts with fewer than 10 likes are filtered out</li>
+                <li>The result object is returned and rendered into the page</li>
+              </ol>
+              <p><strong>⚠️ Gotchas:</strong> Using <code>innerHTML</code> with user-supplied data is a security risk (XSS). Use <code>textContent</code> instead. Also, there is no error handling if the API request fails.</p>
+            </div>
+
+            <!-- Trigger info -->
+            <div class="skill-trigger">
+              <h4>💡 How to Use This Skill</h4>
+              <p>Select any code in VS Code and ask Copilot: <strong>"Explain how this code works"</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Skill 2: Code Reviewer ─── -->
+        <div class="skill-card">
+          <button class="skill-header" data-skill-target="skill-code-reviewer" aria-expanded="false" aria-controls="skill-code-reviewer">
+            <span class="skill-header__title">2. Code Reviewer</span>
+            <span class="skill-header__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="skill-content" id="skill-code-reviewer" hidden>
+            <p class="skill-content__description">
+              <strong>What it does:</strong> Reviews code for bugs, security issues, accessibility violations, and best practice deviations — with concrete fixes for each problem found.
+            </p>
+            <p class="skill-content__description">
+              <strong>When to use:</strong> Before committing code or merging a pull request.
+            </p>
+
+            <!-- Code with issues -->
+            <div class="code-block code-block--before">
+              <p class="code-block__label">❌ Code with Issues</p>
+              <pre><code class="language-javascript">function searchUsers(query) {
+  let results = [];
+  for (let i = 0; i < allUsers.length; i++) {
+    if (allUsers[i].name.includes(query)) {
+      results.push(allUsers[i]);
+    }
+  }
+  document.getElementById('results').innerHTML =
+    '<ul>' + results.map(u => '<li>' + u.name + '</li>').join('') + '</ul>';
+  return results;
+}</code></pre>
+            </div>
+
+            <!-- Issues found -->
+            <div class="skill-explanation">
+              <h4>🐛 Issues Found</h4>
+
+              <div class="skill-issue">
+                <p><strong>Issue 1: Security — XSS Vulnerability</strong> <span class="skill-issue__severity skill-issue__severity--critical">Critical</span></p>
+                <p>User names from the API are inserted directly into <code>innerHTML</code>. An attacker could inject malicious HTML or JavaScript.</p>
+                <p><strong>Fix:</strong> Build DOM elements with <code>document.createElement</code> and <code>textContent</code>.</p>
+              </div>
+
+              <div class="skill-issue">
+                <p><strong>Issue 2: Performance — Inefficient Loop</strong> <span class="skill-issue__severity skill-issue__severity--medium">Medium</span></p>
+                <p>A <code>for</code> loop with an index is more verbose and error-prone than a functional alternative. Use <code>Array.filter()</code> instead.</p>
+              </div>
+
+              <div class="skill-issue">
+                <p><strong>Issue 3: Accessibility — No ARIA Labels</strong> <span class="skill-issue__severity skill-issue__severity--medium">Medium</span></p>
+                <p>The results list has no context for screen readers. Add a <code>role</code> and <code>aria-label</code> so assistive technology can describe the results.</p>
+              </div>
+            </div>
+
+            <!-- Fixed code -->
+            <div class="code-block code-block--after">
+              <p class="code-block__label">✅ Improved Code</p>
+              <pre><code class="language-javascript">function searchUsers(query) {
+  const results = allUsers.filter(user =>
+    user.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const container = document.getElementById('results');
+  container.innerHTML = '';
+
+  const list = document.createElement('ul');
+  list.setAttribute('role', 'list');
+  list.setAttribute('aria-label', `Search results for "${query}"`);
+
+  results.forEach(user => {
+    const item = document.createElement('li');
+    item.textContent = user.name; // Safe: no XSS risk
+    list.appendChild(item);
+  });
+
+  container.appendChild(list);
+  return results;
+}</code></pre>
+            </div>
+
+            <!-- Trigger info -->
+            <div class="skill-trigger">
+              <h4>💡 How to Use This Skill</h4>
+              <p>Select code in VS Code and ask Copilot: <strong>"Review this code for bugs and improvements"</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Skill 3: Architecture Analyzer ─── -->
+        <div class="skill-card">
+          <button class="skill-header" data-skill-target="skill-architecture-analyzer" aria-expanded="false" aria-controls="skill-architecture-analyzer">
+            <span class="skill-header__title">3. Architecture Analyzer</span>
+            <span class="skill-header__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="skill-content" id="skill-architecture-analyzer" hidden>
+            <p class="skill-content__description">
+              <strong>What it does:</strong> Analyzes how your system is structured, identifies design patterns in use, and recommends architectural improvements.
+            </p>
+            <p class="skill-content__description">
+              <strong>When to use:</strong> When designing a new feature, refactoring existing code, or onboarding to an unfamiliar codebase.
+            </p>
+
+            <!-- Monolithic approach -->
+            <div class="code-block code-block--before">
+              <p class="code-block__label">🏗️ Monolithic Approach (Before)</p>
+              <pre><code class="language-javascript">// Everything in one class — hard to test, hard to extend
+class App {
+  constructor() {
+    this.users = [];
+    this.posts = [];
+    this.comments = [];
+  }
+
+  addUser(name) { /* user logic */ }
+  getUser(id) { /* user logic */ }
+  createPost(userId, content) { /* post logic */ }
+  likePost(postId) { /* post logic */ }
+  addComment(postId, text) { /* comment logic */ }
+  validateEmail(email) { /* validation */ }
+  formatDate(date) { /* formatting */ }
+  sendNotification(userId, msg) { /* notifications */ }
+  uploadImage(file) { /* file upload */ }
+}</code></pre>
+            </div>
+
+            <!-- Analysis -->
+            <div class="skill-explanation">
+              <h4>⚠️ Architectural Problems</h4>
+              <ul>
+                <li><strong>Single Responsibility Violation:</strong> One class handles users, posts, comments, validation, formatting, notifications, and uploads.</li>
+                <li><strong>Hard to Test:</strong> You can't test user logic without instantiating everything else.</li>
+                <li><strong>Tight Coupling:</strong> All concerns are entangled — a change in one area risks breaking another.</li>
+                <li><strong>Hard to Scale:</strong> Every new feature means modifying this one class.</li>
+              </ul>
+            </div>
+
+            <!-- Modular approach -->
+            <div class="code-block code-block--after">
+              <p class="code-block__label">✅ Modular Architecture (After)</p>
+              <pre><code class="language-javascript">// Separate services, each with one responsibility
+class UserService {
+  addUser(name) { /* user logic only */ }
+  getUser(id) { /* user logic only */ }
+}
+
+class PostService {
+  createPost(userId, content) { /* post logic only */ }
+  likePost(postId) { /* post logic only */ }
+}
+
+class ValidationService {
+  validateEmail(email) { /* validation only */ }
+}
+
+class NotificationService {
+  send(userId, message) { /* notifications only */ }
+}
+
+// App wires services together — doesn't implement details
+class App {
+  constructor() {
+    this.users = new UserService();
+    this.posts = new PostService();
+    this.validator = new ValidationService();
+    this.notifications = new NotificationService();
+  }
+}</code></pre>
+            </div>
+
+            <!-- Why it's better -->
+            <div class="skill-explanation">
+              <h4>✨ Why This Is Better</h4>
+              <p><strong>Pattern Used:</strong> Service Layer + Dependency Injection</p>
+              <ul>
+                <li>Each class has one job — easy to reason about and test in isolation</li>
+                <li>New features can be added without touching existing services</li>
+                <li>Services can be swapped out (e.g., for mocks in tests)</li>
+                <li>Aligns with the Open/Closed Principle: open for extension, closed for modification</li>
+              </ul>
+            </div>
+
+            <!-- Trigger info -->
+            <div class="skill-trigger">
+              <h4>💡 How to Use This Skill</h4>
+              <p>Ask Copilot: <strong>"Analyze the architecture of my codebase and suggest improvements"</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Skill 4: Test Generator ─── -->
+        <div class="skill-card">
+          <button class="skill-header" data-skill-target="skill-test-generator" aria-expanded="false" aria-controls="skill-test-generator">
+            <span class="skill-header__title">4. Test Generator</span>
+            <span class="skill-header__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="skill-content" id="skill-test-generator" hidden>
+            <p class="skill-content__description">
+              <strong>What it does:</strong> Generates a complete test suite for a function, covering happy paths, edge cases, and error scenarios using the Arrange-Act-Assert pattern.
+            </p>
+            <p class="skill-content__description">
+              <strong>When to use:</strong> After writing a function, when adding test coverage to existing code, or when you need help thinking through all the edge cases.
+            </p>
+
+            <!-- Function to test -->
+            <div class="code-block">
+              <p class="code-block__label">🧪 Function to Test</p>
+              <pre><code class="language-javascript">function calculateDiscount(price, quantity, memberStatus) {
+  if (price <= 0 || quantity <= 0) {
+    throw new Error('Price and quantity must be positive');
+  }
+
+  let discount = 0;
+  if (quantity >= 10) discount += 0.10;
+  if (quantity >= 20) discount += 0.05;
+  if (memberStatus === 'premium') discount += 0.15;
+
+  return price * quantity * (1 - discount);
+}</code></pre>
+            </div>
+
+            <!-- Explanation of what to test -->
+            <div class="skill-explanation">
+              <h4>🗺️ Test Strategy</h4>
+              <ul>
+                <li><strong>Happy paths:</strong> Basic price, quantity discounts, premium member discount, stacked discounts</li>
+                <li><strong>Edge cases:</strong> Minimum quantity (1), decimal prices, exact threshold values (10, 20)</li>
+                <li><strong>Error scenarios:</strong> Negative price, zero quantity, negative quantity</li>
+              </ul>
+            </div>
+
+            <!-- Generated tests -->
+            <div class="code-block code-block--after">
+              <p class="code-block__label">✅ Generated Test Suite</p>
+              <pre><code class="language-javascript">describe('calculateDiscount', () => {
+
+  // Happy Path Tests
+  it('should return full price when no discounts apply', () => {
+    expect(calculateDiscount(100, 5, 'regular')).toBe(500);
+  });
+
+  it('should apply 10% discount for 10 or more items', () => {
+    expect(calculateDiscount(100, 10, 'regular')).toBe(900);
+  });
+
+  it('should apply 15% discount for premium members', () => {
+    expect(calculateDiscount(100, 5, 'premium')).toBe(425);
+  });
+
+  it('should stack quantity and member discounts', () => {
+    // 10% (qty 20) + 5% (qty>=20) + 15% (premium) = 30% off
+    expect(calculateDiscount(100, 20, 'premium')).toBe(1400);
+  });
+
+  // Edge Cases
+  it('should handle minimum quantity of 1', () => {
+    expect(calculateDiscount(100, 1, 'regular')).toBe(100);
+  });
+
+  it('should handle decimal prices correctly', () => {
+    expect(calculateDiscount(9.99, 2, 'regular')).toBeCloseTo(19.98);
+  });
+
+  it('should apply extra 5% at exactly 20 items', () => {
+    expect(calculateDiscount(100, 20, 'regular')).toBe(1700);
+  });
+
+  // Error Scenarios
+  it('should throw when price is negative', () => {
+    expect(() => calculateDiscount(-100, 5, 'regular'))
+      .toThrow('Price and quantity must be positive');
+  });
+
+  it('should throw when quantity is zero', () => {
+    expect(() => calculateDiscount(100, 0, 'regular'))
+      .toThrow('Price and quantity must be positive');
+  });
+
+  it('should throw when quantity is negative', () => {
+    expect(() => calculateDiscount(100, -3, 'regular'))
+      .toThrow('Price and quantity must be positive');
+  });
+});</code></pre>
+            </div>
+
+            <!-- Trigger info -->
+            <div class="skill-trigger">
+              <h4>💡 How to Use This Skill</h4>
+              <p>Select a function in VS Code and ask Copilot: <strong>"Generate unit tests for this code"</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Skill 5: Performance Auditor ─── -->
+        <div class="skill-card">
+          <button class="skill-header" data-skill-target="skill-performance-auditor" aria-expanded="false" aria-controls="skill-performance-auditor">
+            <span class="skill-header__title">5. Performance Auditor</span>
+            <span class="skill-header__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="skill-content" id="skill-performance-auditor" hidden>
+            <p class="skill-content__description">
+              <strong>What it does:</strong> Identifies performance bottlenecks in your code, analyzes algorithmic complexity, and provides optimized alternatives with measurable improvements.
+            </p>
+            <p class="skill-content__description">
+              <strong>When to use:</strong> When your app feels slow, when processing large datasets, or when optimizing critical code paths.
+            </p>
+
+            <!-- Slow code -->
+            <div class="code-block code-block--before">
+              <p class="code-block__label">🐌 Slow Implementation</p>
+              <pre><code class="language-javascript">// Find all duplicate values in an array
+function findDuplicates(items) {
+  const duplicates = [];
+  for (let i = 0; i < items.length; i++) {
+    for (let j = i + 1; j < items.length; j++) {
+      if (items[i] === items[j] && !duplicates.includes(items[i])) {
+        duplicates.push(items[i]);
+      }
+    }
+  }
+  return duplicates;
+}
+
+// 1,000 items → ~500,000 comparisons
+// 10,000 items → ~50,000,000 comparisons</code></pre>
+            </div>
+
+            <!-- Performance problems -->
+            <div class="skill-explanation">
+              <h4>⚠️ Performance Issues Found</h4>
+
+              <div class="skill-issue">
+                <p><strong>Issue 1: O(n²) Nested Loops</strong> <span class="skill-issue__severity skill-issue__severity--critical">Critical</span></p>
+                <p>For every item, the inner loop checks every other item. At 10,000 items this means 50 million comparisons.</p>
+              </div>
+
+              <div class="skill-issue">
+                <p><strong>Issue 2: .includes() Inside Inner Loop</strong> <span class="skill-issue__severity skill-issue__severity--critical">Critical</span></p>
+                <p><code>duplicates.includes()</code> is itself O(n), making the true complexity O(n³). Every comparison triggers another full scan.</p>
+              </div>
+            </div>
+
+            <!-- Optimized code -->
+            <div class="code-block code-block--after">
+              <p class="code-block__label">⚡ Optimized Implementation</p>
+              <pre><code class="language-javascript">// Find all duplicate values in an array — O(n)
+function findDuplicates(items) {
+  const seen = new Set();
+  const duplicates = new Set();
+
+  for (const item of items) {
+    if (seen.has(item)) {
+      duplicates.add(item); // Set.add() ignores duplicates automatically
+    } else {
+      seen.add(item);
+    }
+  }
+
+  return Array.from(duplicates);
+}
+
+// 1,000 items → ~1,000 operations
+// 10,000 items → ~10,000 operations</code></pre>
+            </div>
+
+            <!-- Metrics comparison -->
+            <div class="skill-explanation">
+              <h4>📊 Performance Comparison</h4>
+              <table class="perf-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Before</th>
+                    <th>After</th>
+                    <th>Improvement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Time Complexity</strong></td>
+                    <td>O(n³)</td>
+                    <td>O(n)</td>
+                    <td>Cubic → Linear ✅</td>
+                  </tr>
+                  <tr>
+                    <td><strong>1,000 items</strong></td>
+                    <td>~500M ops</td>
+                    <td>~1,000 ops</td>
+                    <td>500,000× faster ✅</td>
+                  </tr>
+                  <tr>
+                    <td><strong>10,000 items</strong></td>
+                    <td>~50B ops</td>
+                    <td>~10,000 ops</td>
+                    <td>5,000,000× faster ✅</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Memory</strong></td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                    <td>Same</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Key Insight:</strong> <code>Set.has()</code> is O(1) — it checks membership in constant time regardless of size. Replacing nested loops with a single pass over a Set transforms an unusable algorithm into a fast one.</p>
+            </div>
+
+            <!-- Trigger info -->
+            <div class="skill-trigger">
+              <h4>💡 How to Use This Skill</h4>
+              <p>Select code in VS Code and ask Copilot: <strong>"Audit the performance of this code"</strong></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Overview Grid -->
+    <section class="skills-overview">
+      <h2>Quick Reference: When to Use Each Skill</h2>
+      <div class="skills-overview__grid">
+        <div class="skills-overview__card">
+          <h3>🔍 Code Explainer</h3>
+          <p>You encounter unfamiliar code and need to understand what it does and why.</p>
+        </div>
+        <div class="skills-overview__card">
+          <h3>🐛 Code Reviewer</h3>
+          <p>You want quality feedback on your code before committing or deploying.</p>
+        </div>
+        <div class="skills-overview__card">
+          <h3>🏗️ Architecture Analyzer</h3>
+          <p>You're planning a new feature or want to understand how the system fits together.</p>
+        </div>
+        <div class="skills-overview__card">
+          <h3>🧪 Test Generator</h3>
+          <p>You need comprehensive test coverage quickly — happy paths, edges, and errors.</p>
+        </div>
+        <div class="skills-overview__card">
+          <h3>⚡ Performance Auditor</h3>
+          <p>Your code is slow and you need to identify bottlenecks and optimizations.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 DevClarity Coding Tutorial. Learn AI-assisted development.</p>
+  </footer>
+
+  <!-- Prism.js syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+  <!-- Shared scripts (dark mode toggle) -->
+  <script src="scripts.js"></script>
+
+  <!-- Skills accordion: only one panel open at a time -->
+  <script>
+    document.querySelectorAll('.skill-header').forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.skillTarget;
+        const content = document.getElementById(targetId);
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // Collapse all panels
+        document.querySelectorAll('.skill-content').forEach(panel => {
+          panel.hidden = true;
+        });
+        document.querySelectorAll('.skill-header').forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('.skill-header__icon').textContent = '+';
+        });
+
+        // Expand clicked panel if it was collapsed
+        if (!isExpanded) {
+          content.hidden = false;
+          button.setAttribute('aria-expanded', 'true');
+          button.querySelector('.skill-header__icon').textContent = '−';
+          Prism.highlightAllUnder(content);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
