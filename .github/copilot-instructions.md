@@ -73,3 +73,57 @@ Only after gathering sufficient implementation context will the assistant procee
 ### Layout Pattern
 - Purpose: Create flexible, responsive layouts
 - Shine When: Building responsive designs or complex grid systems
+
+## AI-Assisted Development Skills
+
+This project includes 5 skills to help you write better code with AI. Each skill has a definition in `.github/skills/` and a Copilot prompt file in `.github/prompts/`.
+
+### 1. Code Explainer
+**Purpose:** Understand how code works by breaking it into digestible parts.
+**Skill file:** `.github/skills/code-explainer/SKILL.md`
+**Trigger examples:**
+- "Explain how this code works"
+- "Break down this code for me"
+- "What does this function do and why?"
+
+### 2. Code Reviewer
+**Purpose:** Review code for bugs, performance issues, accessibility, and best practices.
+**Skill file:** `.github/skills/code-reviewer/SKILL.md`
+**Prompt file:** `.github/prompts/code-reviewer.prompt.md`
+**Trigger examples:**
+- "Review this code for bugs and improvements"
+- "Check this code for performance issues"
+- "Are there any accessibility problems here?"
+
+### 3. Architecture Analyzer
+**Purpose:** Analyze system structure, design patterns, and identify architectural improvements.
+**Skill file:** `.github/skills/architecture-analyzer/SKILL.md`
+**Prompt file:** `.github/prompts/architecture-analyzer.prompt.md`
+**Trigger examples:**
+- "Analyze the architecture of my codebase"
+- "What design patterns are being used here?"
+- "How should I structure this new feature?"
+
+### 4. Test Generator
+**Purpose:** Generate comprehensive unit tests covering happy paths, edge cases, and error scenarios.
+**Skill file:** `.github/skills/test-generator/SKILL.md`
+**Prompt file:** `.github/prompts/test-generator.prompt.md`
+**Trigger examples:**
+- "Generate unit tests for this code"
+- "Write tests for this function"
+- "What edge cases should I test here?"
+
+### 5. Performance Auditor
+**Purpose:** Identify performance bottlenecks and provide optimized alternatives with complexity analysis.
+**Skill file:** `.github/skills/performance-auditor/SKILL.md`
+**Prompt file:** `.github/prompts/performance-auditor.prompt.md`
+**Trigger examples:**
+- "Audit the performance of this code"
+- "How can I optimize this function?"
+- "Why is this code slow?"
+
+### Skills Demo Page
+View interactive before/after examples for all 5 skills at: `http://localhost:8000/skills-demo.html`
+
+### Full Documentation
+See `docs/skills/overview.md` for the complete skills reference guide.
